@@ -1,0 +1,28 @@
+.grid {
+  width: 500px;
+  display: flex;
+}
+
+.node {
+  height: 50px;
+  width: 50px;
+  border: 1px solid;
+  background-color: white;
+}
+
+.rows {
+  max-width: 80%;
+  margin: auto;
+}
+
+.start {
+  background-color: green;
+}
+
+.end {
+  background-color: red;
+}
+
+.wall {
+  background-color: grey;
+}
