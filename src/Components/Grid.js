@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import Node from "./Node";
+import Astar from "../Algorithms/Astar";
 import "./Grid.css";
 
 const cols = 20;
@@ -11,6 +11,9 @@ let chooseEnd = false;
 let startNode = null;
 let endNode = null;
 let walls = [];
+
+let startCoords = "";
+let endCoords = "";
 
 function Grid() {
   const [Grid, setGrid] = useState([]);
@@ -39,13 +42,6 @@ function Grid() {
     this.x = x;
     this.y = y;
   }
-
-  const removeStart = () => {
-    if (startNode != null) {
-    }
-  };
-
-  const removeEnd = () => {};
 
   const changeNode = (x, y) => {
     if (chooseStart) {
@@ -86,8 +82,24 @@ function Grid() {
         }
       } else {
         node.className = "node wall";
-        walls.push(node);
+        let len = node.id.length;
+        walls.push(node.id.substring(len - 3, len));
       }
+    }
+  };
+
+  let visualize = () => {
+    if (startNode == null || endNode == null) {
+      // implement popup window
+      console.log("You have not chosen a start node or end node");
+    } else {
+      let length = startNode.id.length;
+      startCoords = startNode.id.substring(length - 3, length);
+
+      length = endNode.id.length;
+      endCoords = endNode.id.substring(length - 3, length);
+
+      Astar(startCoords, endCoords, walls, Grid);
     }
   };
 
@@ -152,6 +164,7 @@ function Grid() {
       <div>
         <button onClick={handleStart}>Choose a starting point</button>
         <button onClick={handleEnd}>Choose an end point</button>
+        <button onClick={visualize}>Visualize</button>
       </div>
       {displayGrid}
     </div>
